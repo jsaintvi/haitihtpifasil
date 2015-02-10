@@ -21,8 +21,10 @@
 	a{
 		color: white;
 	}
-	a:hover {
+	.email:hover {
 		background-color: yellow;
+		font-size: 17px;
+		font-weight: bolder;
 	}
 
 	span {
@@ -35,9 +37,22 @@
         width: 228px;
         height: 248px;
       }
+      #footer {
+      	width:100%;
+		height:80px;
+		margin-top: 12px;px;
+		bottom:0;
+		left:0;
+		text-align: center;
+		
+
+      }
 </style>
 </head>
 <body>
+	
+
+
 <script type="text/javascript">
 	window.onload = function(){
 	//canvas init
@@ -151,7 +166,7 @@
 			
 			<br>
 			<b>Email</b>
-			<a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">:jsaintvi@kent.edu</a>
+			<a class="email" href="mailto:someone@example.com?Subject=Hello%20again" target="_top">:jsaintvi@kent.edu</a>
 			
 			<br>
 			<br>
@@ -179,7 +194,9 @@
 </div>
 
 <div id="footer">
-	<span style="text-align:center;">&copyJodex Saint-Vil</span>
+	
+		<p>Copyright (c) Jodex Saint-Vil 2015</p>
+	
 </div>
 </body>
 </html>
