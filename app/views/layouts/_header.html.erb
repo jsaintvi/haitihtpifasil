@@ -8,22 +8,25 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><i class="fa fa-circle-o-notch fa-spin"></i>  AchtePiFasil</a>
+      
+    <%= link_to "<i class='fa fa-circle-o-notch'></i> AchtePiFasil".html_safe, root_path, class: "navbar-brand" %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
+     <!-- <ul class="nav navbar-nav">
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
        
        
       </ul>
-   
+   -->
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Our Vision</a></li>
-        <li><a href="#">Contact Us</a></li>
-
+        <li><%= link_to "About Us", about_path%></li>
+        <!-- <li><a href="pages/vision.html.erb">Our Vision</a></li>
+        <li><a href="www.google.com">Contact Us</a></li> -->
+        <li><%= link_to "Vision", vision_path %></li>
+        <li><%= link_to "Contact", contact_path %></li>
+        
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

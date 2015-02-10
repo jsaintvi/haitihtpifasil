@@ -1,0 +1,185 @@
+<html>
+<head>
+<style type="text/css">
+	* {margin: 0; padding: 0;}
+	body
+	{
+		background: #6b92b9;
+	}
+	canvas {
+		display: block;
+	}
+	iframe{
+		width: 1000px;
+		height: 250px;
+		border-top-width: 0px;
+		border-right-width: 0px;
+		border-bottom-width: 0px;
+		border-left-width: 0px;
+	}
+
+	a{
+		color: white;
+	}
+	a:hover {
+		background-color: yellow;
+	}
+
+	span {
+		background-color: white;
+	}
+	footer{
+		margin-bottom: 100px;
+	}
+	#map-canvas {
+        width: 228px;
+        height: 248px;
+      }
+</style>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+	//canvas init
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	
+	//canvas dimensions
+	var W = window.innerWidth;
+	var H = window.innerHeight;
+	canvas.width = W;
+	canvas.height = H;
+	
+	//snowflake particles
+	var mp = 25; //max particles
+	var particles = [];
+	for(var i = 0; i < mp; i++)
+	{
+		particles.push({
+			x: Math.random()*W, //x-coordinate
+			y: Math.random()*H, //y-coordinate
+			r: Math.random()*4+1, //radius
+			d: Math.random()*mp //density
+		})
+	}
+	
+	//Lets draw the flakes
+	function draw()
+	{
+		ctx.clearRect(0, 0, W, H);
+		
+		ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+		ctx.beginPath();
+		for(var i = 0; i < mp; i++)
+		{
+			var p = particles[i];
+			ctx.moveTo(p.x, p.y);
+			ctx.arc(p.x, p.y, p.r, 0, Math.PI*2, true);
+		}
+		ctx.fill();
+		update();
+	}
+	
+	//Function to move the snowflakes
+	//angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
+	var angle = 0;
+	function update()
+	{
+		angle += 0.01;
+		for(var i = 0; i < mp; i++)
+		{
+			var p = particles[i];
+			//Updating X and Y coordinates
+			//We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
+			//Every particle has its own density which can be used to make the downward movement different for each flake
+			//Lets make it more random by adding in the radius
+			p.y += Math.cos(angle+p.d) + 1 + p.r/2;
+			p.x += Math.sin(angle) * 2;
+			
+			//Sending flakes back from the top when it exits
+			//Lets make it a bit more organic and let flakes enter from the left and right also.
+			if(p.x > W+5 || p.x < -5 || p.y > H)
+			{
+				if(i%3 > 0) //66.67% of the flakes
+				{
+					particles[i] = {x: Math.random()*W, y: -10, r: p.r, d: p.d};
+				}
+				else
+				{
+					//If the flake is exitting from the right
+					if(Math.sin(angle) > 0)
+					{
+						//Enter from the left
+						particles[i] = {x: -5, y: Math.random()*H, r: p.r, d: p.d};
+					}
+					else
+					{
+						//Enter from the right
+						particles[i] = {x: W+5, y: Math.random()*H, r: p.r, d: p.d};
+					}
+				}
+			}
+		}
+	}
+	
+	//animation loop
+	setInterval(draw, 33);
+}
+
+
+</script>
+<div class="redcontent" id="redcontent-contactus">
+<canvas id="canvas">
+	<div class="page_title">
+		<h1>Contact Us</h1>
+	</div>
+	
+</div>
+
+<div class="whitecontent" id="whitecontent-contactus">
+	<table>
+		<td valign="top" style="padding-left:10px;">
+			<div class="box" id="box-office-details">
+				<b>Mailing Address</b>
+				<br>
+				
+					Jodex Saint-Vil
+				
+			<br>
+			
+			225 Midway Drive, Kent, Ohio 44243
+			
+			<br>
+			<b>Email</b>
+			<a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">:jsaintvi@kent.edu</a>
+			
+			<br>
+			<br>
+			<b>Phone</b>
+			: 330-760-4293
+			</div>
+			<br>
+
+			<span>For further details, please contact us using the contact info listed above!</span>
+			<br />
+
+			<br />
+			<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?layer=c&amp;panoid=z4VG4LDJN7u7iLgMJx5unQ&amp;ie=UTF8&amp;source=embed&amp;output=svembed&amp;ll=41.146403%2C-81.342993&amp;cbp=13%2C5.963999999999999%2C%2C0%2C-14.439999999999998">
+			</iframe>
+			<div>
+			<small><a href="https://www.google.com/maps/views/" style="color:#0000FF; text-align:left">Views</a>: <a href="https://www.google.com/maps/views/view/streetview/university-campuses/kent-state-university/z4VG4LDJN7u7iLgMJx5unQ" style="color:#0000FF; text-align:left">Kent State University</a> by <a href="https://www.google.com/maps/views/streetview" style="color:#0000FF; text-align:left">Google Maps</a>
+			</small>
+			</div>
+			
+			</div>
+			</div>
+		</td>
+	</table>
+	</canvas>
+</div>
+
+<div id="footer">
+	<span style="text-align:center;">&copyJodex Saint-Vil</span>
+</div>
+</body>
+</html>
